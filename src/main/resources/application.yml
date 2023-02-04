@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:mysql://101.43.7.238:3306/store?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: mysql
+    password: mysql
+  servlet:
+    multipart:
+      enabled: true #是否启用http上传处理
+      max-file-size: 10MB #设置单个文件最大长度
+      max-request-size: 100MB #最大请求文件的大小
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: delFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      id-type: auto
+file-save-path: E:\holiday\store_img\
