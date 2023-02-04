@@ -21,13 +21,18 @@ public class ProductContorller {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("list")
+    @GetMapping("/list")
     public ResponseResult getAllProducts(Integer pageNum,Integer pageSize){
             return productService.productsList(pageNum,pageSize);
     }
-    @PostMapping("add")
+    @PostMapping("/add")
     public ResponseResult register(@RequestBody Product product){
         productService.save(product);
+        return ResponseResult.okResult();
+    }
+    @DeleteMapping("/{id}")
+    public ResponseResult delete(@PathVariable Long id){
+        productService.removeById(id);
         return ResponseResult.okResult();
     }
 
