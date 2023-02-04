@@ -1,11 +1,10 @@
 package com.voidki.store.controller;
 
 import com.voidki.store.domain.ResponseResult;
+import com.voidki.store.domain.entity.Product;
 import com.voidki.store.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -26,4 +25,10 @@ public class ProductContorller {
     public ResponseResult getAllProducts(Integer pageNum,Integer pageSize){
             return productService.productsList(pageNum,pageSize);
     }
+    @PostMapping("add")
+    public ResponseResult register(@RequestBody Product product){
+        productService.save(product);
+        return ResponseResult.okResult();
+    }
+
 }
