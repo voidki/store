@@ -12,5 +12,6 @@ import com.voidki.store.domain.entity.Product;
  * @since 2023-01-31 14:13:21
  */
 public interface ProductService extends IService<Product> {
-    ResponseResult productsList(Integer pageNum,Integer pageSize);
+    ResponseResult productsList(Product product,Integer pageNum,Integer pageSize);
+    ResponseResult register(Product product);
 }

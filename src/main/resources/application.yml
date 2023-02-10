@@ -9,7 +9,6 @@ spring:
       enabled: true #是否启用http上传处理
       max-file-size: 10MB #设置单个文件最大长度
       max-request-size: 100MB #最大请求文件的大小
-
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -20,3 +19,5 @@ mybatis-plus:
       logic-not-delete-value: 0
       id-type: auto
 file-save-path: E:\holiday\store_img\
+server:
+  port: 7777

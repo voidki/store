@@ -22,18 +22,26 @@ public class ProductContorller {
     private ProductService productService;
 
     @GetMapping("/list")
-    public ResponseResult getAllProducts(Integer pageNum,Integer pageSize){
-            return productService.productsList(pageNum,pageSize);
+    public ResponseResult getAllProducts(Product product,Integer pageNum,Integer pageSize){
+            return productService.productsList(product,pageNum,pageSize);
     }
     @PostMapping("/add")
     public ResponseResult register(@RequestBody Product product){
-        productService.save(product);
-        return ResponseResult.okResult();
+        return productService.register(product);
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseResult delete(@PathVariable Long id){
         productService.removeById(id);
         return ResponseResult.okResult();
     }
-
+    @PutMapping("/update")
+    public ResponseResult edit(@RequestBody Product product){
+        productService.updateById(product);
+        return ResponseResult.okResult();
+    }
+    @GetMapping(value = { "/{productId}" })
+    public ResponseResult getProductInfo(@PathVariable(value = "productId") Long productId){
+        Product product = productService.getById(productId);
+        return ResponseResult.okResult(product);
+    }
 }

@@ -1,9 +1,11 @@
 package com.voidki.store.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.voidki.store.domain.ResponseResult;
 import com.voidki.store.domain.entity.User;
+import com.voidki.store.domain.vo.PageVo;
 import com.voidki.store.enums.AppHttpCodeEnum;
 import com.voidki.store.exception.SystemException;
 import com.voidki.store.mapper.UserMapper;
@@ -13,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+
 /**
  * 用户表(User)表服务实现类
  *
@@ -21,6 +25,7 @@ import org.springframework.util.StringUtils;
  */
 @Service("userService")
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -43,6 +48,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         //存入数据库
         save(user);
         return ResponseResult.okResult();
+    }
+
+    @Override
+    public ResponseResult selectUserPage(User user, Integer pageNum, Integer pageSize) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        Page<User> page = new Page<>();
+        queryWrapper.like(StringUtils.hasText(user.getUserName()),User::getUserName,user.getUserName());
+        queryWrapper.eq(User::getType,"0");
+        page.setCurrent(pageNum);
+        page.setSize(pageSize);
+        page(page,queryWrapper);
+        List<User> users = page.getRecords();
+        PageVo pageVo = new PageVo();
+        pageVo.setTotal(page.getTotal());
+        pageVo.setRows(users);
+        return ResponseResult.okResult(pageVo);
     }
 
     private boolean userNameExist(String userName) {

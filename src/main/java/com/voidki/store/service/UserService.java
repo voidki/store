@@ -13,4 +13,6 @@ import com.voidki.store.domain.entity.User;
  */
 public interface UserService extends IService<User> {
     ResponseResult register(User user);
+
+    ResponseResult selectUserPage(User user, Integer pageNum, Integer pageSize);
 }

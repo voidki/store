@@ -5,6 +5,7 @@ import com.voidki.store.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,7 +26,7 @@ public class ImgUploadController {
     private ImageService imageService;
 
     @PostMapping("/upload")
-    public ResponseResult fileLoad(MultipartFile multipartFile, HttpServletRequest request){
-        return imageService.load(multipartFile,request);
+    public ResponseResult fileLoad(@RequestParam("file") MultipartFile file, HttpServletRequest request){
+        return imageService.load(file,request);
     }
 }
